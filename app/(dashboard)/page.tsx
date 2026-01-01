@@ -1,6 +1,6 @@
-
 import { redirect } from "next/navigation"
 import { createClient } from "@/lib/supabase/server"
+import { CreateOrgForm } from "@/components/create-org-form"
 
 export default async function DashboardRootPage() {
     const supabase = await createClient()
@@ -22,15 +22,12 @@ export default async function DashboardRootPage() {
 
     if (membership) {
         redirect(`/${membership.org_id}/deals`)
-    } else {
-        // Redirect to create org page or show empty state
-        // For MVP, if no org, maybe just show a "Create Org" screen here
-        return (
-            <div className="p-8">
-                <h1 className="text-2xl font-bold">Welcome to DealOS</h1>
-                <p>You are not a member of any organization yet.</p>
-                {/* Basic Create Org Button or form could go here */}
-            </div>
-        )
     }
+
+    return (
+        <div className="flex min-h-screen flex-col items-center justify-center p-4 bg-zinc-50 dark:bg-zinc-950/50">
+            <div className="absolute inset-0 -z-10 h-full w-full bg-white dark:bg-zinc-950 [background:radial-gradient(125%_125%_at_50%_10%,#fff_40%,#63e_100%)] dark:[background:radial-gradient(125%_125%_at_50%_10%,#000_40%,#63e_100%)] opacity-20" />
+            <CreateOrgForm />
+        </div>
+    )
 }
