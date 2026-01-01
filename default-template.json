@@ -1,0 +1,200 @@
+{
+  "name": "Firm Standard IC Memo",
+  "description": "The golden standard for all investment decisions, incorporating Firm guidelines. Follow this template precisely.",
+  "tone_voice": "Write in active voice. Be concise and direct. Conclusion first! Clearly state why the deal team wants to own the company AND how we will make money. Use clear, impactful language. Assume the reader is familiar with basic private equity concepts but needs a quick, digestible overview of this specific opportunity.",
+  "sections": [
+    {
+      "id": "deal-overview",
+      "title": "Deal Overview",
+      "description": "Summary of the key deal terms and information.  This section should provide a high-level snapshot of the investment opportunity.",
+      "required_data": [
+        "Company Description",
+        "Fund | Deal Stage",
+        "Risk/Upside (200)",
+        "Deal Team",
+        "OP Consumption (1-3)",
+        "Ent. Value | Equity",
+        "Country Risk",
+        "EV / EBITDA (LTM and other relevant multiples)",
+        "Lenders",
+        "MAMA Multiple",
+        "Growth Multiple",
+        "Deal Risk | Fraudar (with color scheme)",
+        "EV/Rev Comparables (Public and M&A)",
+        "Structure | Tax Benefit",
+        "Mgmt Rollover (% of Newco, % of proceeds, $ amount)",
+        "Deal Source | Process",
+        "Options | Value",
+        "Seller(s)",
+        "Key Mgmt Grades (top 2-3, intact/leaving)",
+        "Key Dates",
+        "Employees (FTEs)",
+        "Company Website"
+      ],
+      "hidden_questions": [
+        "What is the rationale for the Risk/Upside score?  How does it compare to previous deals?",
+        "Is the Country Risk accurately assessed based on Appendix I?",
+        "Why are these the 'relevant' EV/EBITDA multiples chosen?  Are they fully adjusted for earn-outs or other contingent payments?",
+        "How does the MAMA multiple compare to similar transactions?",
+        "What is the basis for the Deal Risk/Fraudar assessment?  Are any 'Red' or 'Yellow' flags adequately addressed?",
+        "How significant are the tax benefits?",
+        "Is the management rollover sufficient to ensure alignment of incentives? Are the specific percentages meaningful?",
+        "Was this a competitive process?  If not, why not?",
+        "Are management grades realistic and fair?",
+        "Is the company unionized?",
+        "What could change the risk score at each stage of the deal?",
+        "What specific workstreams have the deal team conducted?"
+      ]
+    },
+    {
+      "id": "transaction-summary",
+      "title": "Transaction Summary (€000's)",
+      "description": "Sources and uses of funds for the transaction.",
+      "required_data": [
+        "Sources: Revolver, Senior Term A, Senior Term B, Sub Debt, Equity (RMCF Equity, Mgmt. Equity, Other/Mgmt. Equity)",
+        "Uses: Consid. @ Close, Expenses, Revolver Cushion, Incr. Cash Bal., Other",
+        "Ownership"
+      ],
+      "hidden_questions": [
+        "Are the sources and uses clearly presented and reconciled?",
+        "Are the expense assumptions reasonable?",
+        "Is the revolver cushion adequate?",
+        "What are the specific terms of the debt facilities?",
+        "Are there any hidden or unusual fees?",
+        "Are the advisor fees inline with previous transactions?",
+        "What is the assumed interest rate on acquired debt?"
+      ]
+    },
+    {
+      "id": "returns-summary",
+      "title": "Returns Summary (€000's)",
+      "description": "Summary of projected returns under different scenarios.",
+      "required_data": [
+        "Scenario (TRC Case - Pre Carry, TRC Case - Post-Carry, Mgmt. Case - Pre Carry, Mgmt. Case - Post-Carry)",
+        "Investment",
+        "Exit",
+        "IRR",
+        "Multiple of Invested Capital (MOIC)",
+        "TRC Carry (Gross & Net)"
+      ],
+      "hidden_questions": [
+        "Are the return projections realistic and well-supported by the financial model?",
+        "What are the key drivers of the difference between the TRC and Management cases?",
+        "How sensitive are the returns to changes in key assumptions (e.g., exit multiple, revenue growth, margin expansion)?",
+        "Is the carry calculation accurate?",
+        "What is the exit strategy?",
+        "What is the risk weighting around IRR?",
+        "How will the business perform in a downturn?"
+      ]
+    },
+    {
+      "id": "financial-purchase-multiple-summary",
+      "title": "Financial & Purchase Multiple Summary (€000's)",
+      "description": "Key financial metrics and valuation multiples. Includes FCF & historical sales/EBITDA growth.",
+      "required_data": [
+        "Historical and Projected financials (Sales, Gross Profit, EBITDA, UCF, FCF)",
+        "Enterprise Value / Sales (LTM and NTM)",
+        "Enterprise Value / EBITDA (LTM and NTM)",
+        "Enterprise Value / UCF (LTM and NTM)",
+        "Debt / EBITDA",
+        "Debt / UCF",
+        "Fixed Charge Coverage",
+        "Sales Growth (Historical and Projected)",
+        "EBITDA Growth (Historical and Projected)",
+        "GM %",
+        "EBITDA %",
+        "UCF %",
+        "FCF %",
+        "CapInv/EBITDA",
+        "Maint. Cap Ex",
+        "Growth Cap Ex",
+        "Incr (Decr) in WC",
+        "LTMCAGR"
+      ],
+      "hidden_questions": [
+        "Are the historical financials consistent with audited financial statements?",
+        "Are the projected financials achievable, given the company's historical performance and industry trends?",
+        "What are the key assumptions underlying the financial projections?",
+        "How does the company's historical financial performance compare to its peers?",
+        "Are the capital expenditure assumptions reasonable?",
+        "What is the quality of earnings?",
+        "What is the FX Rate?",
+        "Is GRNAC properly calculated (adjusted for macro/micro economic factors)?",
+        "Is the Growth Multiple (EBITDA multiple / (GRNAC x 100)) reasonable given the company's growth prospects?",
+        "How does historical growth compare to assumed GRNAC?",
+        "Walk through debt paydown and deleveraging schedule"
+      ]
+    },
+    {
+      "id": "esg-matrix",
+      "title": "Environmental, Social, Governance & Values (ESG+V) Matrix",
+      "description": "Assessment of the company's performance on ESG factors.",
+      "required_data": [
+        "Grades for Environmental, Social, Governance, and Values"
+      ],
+      "hidden_questions": [
+        "What is the rationale for the ESG grades?",
+        "Are there any significant ESG risks or opportunities associated with the investment?",
+        "Does the company have appropriate policies and procedures in place to manage ESG risks?",
+        "How does management view ESG?"
+      ]
+    },
+    {
+      "id": "market-overview",
+      "title": "Market Overview",
+      "description": "Discussion of the company's market size, penetration, and share.",
+      "required_data": [
+        "Addressable Market ($, CAGR)",
+        "Penetrated Market ($, CAGR)",
+        "Market Penetration (%)",
+        "Company Revenue ($, CAGR)",
+        "Market Share (%)"
+      ],
+      "hidden_questions": [
+        "How defensible are the market assumptions?",
+        "Do margins erode in the future?",
+        "Where does this data come from?",
+        "What does the competitive landscape look like?",
+        "Explain the assumptions."
+      ]
+    },
+    {
+      "id": "investment-strategy-overview",
+      "title": "Investment Strategy Overview",
+      "description": "Explanation of why we want to buy the business, what we will do with it, and what keeps us up at night.",
+      "required_data": [
+        "Why Do We Want To Buy This Business? (Key investment highlights)",
+        "What Will We Do With It? (Value creation initiatives)",
+        "What Keeps Us Up At Night? (Key risks and mitigants)"
+      ],
+      "hidden_questions": [
+        "Are the investment highlights compelling and well-supported by the due diligence findings?",
+        "Are the value creation initiatives realistic and achievable?",
+        "Are the key risks adequately identified and mitigated?",
+        "Is this business 'Riverside-able'?",
+        "What are the specific KPIs to measure success?"
+      ]
+    },
+    {
+      "id": "company-overview",
+      "title": "Company Overview",
+      "description": "Brief description of the company's products, customers, suppliers, industry, and competitive environment.",
+      "required_data": [
+        "Products",
+        "Customers",
+        "Suppliers",
+        "Industry Primer",
+        "Competitive Environment",
+        "Other Considerations"
+      ],
+      "hidden_questions": [
+        "Is the company's product portfolio well-positioned in the market?",
+        "Is the customer base diversified and stable?",
+        "Are there any significant supplier dependencies?",
+        "Is the industry attractive and growing?",
+        "What is the company's competitive advantage?",
+        "What are the potential exit opportunities?"
+      ]
+    }
+  ]
+}
