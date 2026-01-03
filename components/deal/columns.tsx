@@ -22,6 +22,7 @@ export type Deal = {
     source: string | null
     stage: string | null
     probability: number | null
+    value: number | null // Added for Kanban
     updated_at: string
 }
 

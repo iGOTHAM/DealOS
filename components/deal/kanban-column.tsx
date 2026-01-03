@@ -1,5 +1,5 @@
 
-import { SortableContext, useSortable } from "@dnd-kit/sortable"
+import { SortableContext, useSortable, verticalListSortingStrategy } from "@dnd-kit/sortable"
 import { CSS } from "@dnd-kit/utilities"
 import { useMemo } from "react"
 import { Column } from "@/components/deal/kanban-board"
@@ -12,39 +12,54 @@ interface KanbanColumnProps {
     deals: Deal[]
 }
 
-export function KanbanColumn({ column, deals }: KanbanColumnProps) {
-    // We use the column as a droppable zone. 
-    // dnd-kit SortableContext needs a list of items for sorting.
+// Helper for column colors
+const getColumnColor = (id: string) => {
+    switch (id) {
+        case "Sourced": return "border-blue-400"
+        case "NDA": return "border-indigo-400"
+        case "CIM Review": return "border-purple-400"
+        case "IOI": return "border-pink-400"
+        case "LOI": return "border-orange-400"
+        case "Diligence": return "border-yellow-400"
+        case "Final IC": return "border-emerald-400"
+        case "Closed Won": return "border-green-500"
+        case "Closed Lost": return "border-red-400"
+        default: return "border-gray-300"
+    }
+}
 
+export function KanbanColumn({ column, deals }: KanbanColumnProps) {
     const dealIds = useMemo(() => deals.map((d) => d.id), [deals])
 
     const { isOver, setNodeRef } = useSortable({
         id: column.id,
-        data: {
-            type: "Column",
-            column,
-        },
-        disabled: true, // We don't drag columns for now
+        data: { type: "Column", column },
+        disabled: true,
     })
 
-    // We need a specific droppable for the empty area or the column itself
+    const borderColor = getColumnColor(column.id)
 
     return (
         <div
             ref={setNodeRef}
-            className={`flex h-full w-[350px] min-w-[350px] flex-col rounded-md bg-muted/50 p-2 ${isOver ? "ring-2 ring-primary" : ""
-                }`}
+            className={`flex h-full w-[200px] min-w-[200px] flex-col bg-[#F1F5F9] rounded-none first:rounded-l-lg last:rounded-r-lg ${isOver ? "bg-slate-200" : ""}`}
         >
-            <div className="mb-2 flex items-center justify-between p-2 font-semibold">
-                <span>{column.title}</span>
-                <span className="flex h-5 w-5 items-center justify-center rounded-full bg-primary/10 text-xs text-primary">
-                    {deals.length}
-                </span>
+            {/* Header with Top Border */}
+            <div className={`mb-2 bg-white px-2 py-1.5 border-t-[3px] ${borderColor} shadow-sm mx-1.5 mt-1.5 rounded-sm`}>
+                <div className="flex items-center justify-between mb-0.5">
+                    <span className="font-bold text-xs text-slate-900 truncate">{column.title}</span>
+                    <span className="bg-slate-100 text-slate-600 text-[9px] font-bold px-1.5 py-0 rounded-full">
+                        {deals.length}
+                    </span>
+                </div>
+                <div className="text-[9px] text-slate-400 font-medium">
+                    ${deals.reduce((acc, d) => acc + (d.value || 0), 0).toLocaleString()}
+                </div>
             </div>
 
-            <ScrollArea className="flex-1">
-                <div className="flex flex-col gap-2 p-1">
-                    <SortableContext items={dealIds}>
+            <ScrollArea className="flex-1 px-2 pb-2">
+                <div className="flex flex-col gap-3">
+                    <SortableContext items={dealIds} strategy={verticalListSortingStrategy}>
                         {deals.map((deal) => (
                             <KanbanCard key={deal.id} deal={deal} />
                         ))}

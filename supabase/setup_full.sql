@@ -82,7 +82,7 @@ create table document_versions (
 create table document_chunks (
   id uuid default gen_random_uuid() primary key,
   document_version_id uuid references document_versions(id) on delete cascade not null,
-  content text,
+  chunk_text text,
   embedding vector(1536), -- OpenAI embedding size
   page_number integer,
   chunk_index integer,
@@ -272,3 +272,37 @@ VALUES
 ('a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11', '00000000-0000-0000-0000-00000000d101', 'Review CIM', 'pending'),
 ('a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11', '00000000-0000-0000-0000-00000000d101', 'Schedule Mgmt Call', 'pending')
 ON CONFLICT DO NOTHING;
+
+-- Match documents function (Added for RAG)
+create or replace function match_documents (
+  query_embedding vector(1536),
+  match_threshold float,
+  match_count int,
+  filter_deal_id uuid
+)
+returns table (
+  id uuid,
+  content text,
+  similarity float,
+  document_name text,
+  page_ref text
+)
+language plpgsql
+as $$
+begin
+  return query
+  select
+    dc.id,
+    dc.chunk_text as content,
+    1 - (dc.embedding <=> query_embedding) as similarity,
+    d.name as document_name,
+    'Page 1'::text as page_ref
+  from document_chunks dc
+  join document_versions dv on dc.document_version_id = dv.id
+  join documents d on dv.document_id = d.id
+  where 1 - (dc.embedding <=> query_embedding) > match_threshold
+  and d.deal_id = filter_deal_id
+  order by dc.embedding <=> query_embedding
+  limit match_count;
+end;
+$$;

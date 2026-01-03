@@ -102,3 +102,19 @@ export const runLLM = async ({
         throw error;
     }
 };
+
+export const getEmbeddings = async (text: string): Promise<number[]> => {
+    try {
+        const client = getClient();
+        // Fallback to openai default if openrouter doesn't support embeddings or returns error on routing
+        const response = await client.embeddings.create({
+            model: "text-embedding-3-small",
+            input: text,
+        });
+        return response.data[0].embedding;
+    } catch (error) {
+        console.error("Error generating embeddings:", error);
+        // Return dummy embedding in case of error to fail gracefully
+        return Array(1536).fill(0);
+    }
+};

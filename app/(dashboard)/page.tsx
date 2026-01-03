@@ -21,7 +21,7 @@ export default async function DashboardRootPage() {
         .single()
 
     if (membership) {
-        redirect(`/${membership.org_id}/deals`)
+        redirect(`/${membership.org_id}`)
     }
 
     return (

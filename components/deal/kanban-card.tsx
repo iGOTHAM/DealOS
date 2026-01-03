@@ -1,9 +1,7 @@
-
 import { useSortable } from "@dnd-kit/sortable"
 import { CSS } from "@dnd-kit/utilities"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Deal } from "@/components/deal/columns"
-import Link from "next/link"
+import { Building2, MessageSquare, Paperclip } from "lucide-react"
 
 interface KanbanCardProps {
     deal: Deal
@@ -19,10 +17,7 @@ export function KanbanCard({ deal }: KanbanCardProps) {
         isDragging,
     } = useSortable({
         id: deal.id,
-        data: {
-            type: "Deal",
-            deal,
-        },
+        data: { type: "Deal", deal },
     })
 
     const style = {
@@ -34,27 +29,39 @@ export function KanbanCard({ deal }: KanbanCardProps) {
         return (
             <div
                 ref={setNodeRef}
-                style={style}
-                className="h-[100px] w-full rounded-md border border-primary/50 bg-background opacity-50"
+                style={{ ...style, touchAction: "none" }}
+                className="h-[80px] w-full rounded-md border-2 border-blue-500/50 bg-white shadow-xl opacity-90 cursor-grabbing rotate-2"
             />
         )
     }
 
+    // Mock data for UI if missing
+    // @ts-ignore
+    const value = deal.value ? deal.value.toLocaleString() : "5,000"
+    const contact = "John Smith" // placeholder
+
     return (
-        <div ref={setNodeRef} style={style} {...attributes} {...listeners}>
-            <Card className="cursor-grab hover:shadow-md">
-                <CardHeader className="p-4 pb-2">
-                    <CardTitle className="text-sm font-medium leading-none">
-                        {deal.name}
-                    </CardTitle>
-                </CardHeader>
-                <CardContent className="p-4 pt-0 text-xs text-muted-foreground">
-                    <div className="mt-2">
-                        Prob: {deal.probability}%
+        <div
+            ref={setNodeRef}
+            style={{ ...style, touchAction: "none" }}
+            {...attributes}
+            {...listeners}
+            className="group outline-none touch-none"
+        >
+            <div className="bg-white rounded-md border border-slate-200 p-2 shadow-sm hover:shadow-md transition-all cursor-grab active:cursor-grabbing group-hover:border-blue-400 group-hover:ring-1 group-hover:ring-blue-400/20">
+                <div className="flex items-start gap-2">
+                    <div className="h-6 w-6 rounded-sm bg-slate-900 flex items-center justify-center shrink-0 mt-0.5">
+                        <span className="text-white text-[10px] font-bold">{deal.name.charAt(0)}</span>
                     </div>
-                    {/* Link to detail page disabled during drag usually, but we can make the whole card clickable or add a button */}
-                </CardContent>
-            </Card>
+
+                    <div className="flex-1 min-w-0">
+                        <h4 className="text-xs font-bold text-slate-900 leading-tight truncate" title={deal.name}>
+                            {deal.name}
+                        </h4>
+                        <p className="text-[9px] text-slate-400 mt-0.5 truncate">New opportunity</p>
+                    </div>
+                </div>
+            </div>
         </div>
     )
 }

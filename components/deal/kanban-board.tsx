@@ -12,6 +12,7 @@ import {
     DragStartEvent,
     DragEndEvent,
     closestCorners,
+    KeyboardSensor,
 } from "@dnd-kit/core"
 import { SortableContext, arrayMove } from "@dnd-kit/sortable"
 import { createPortal } from "react-dom"
@@ -52,9 +53,10 @@ export function KanbanBoard({ initialDeals, orgId }: KanbanBoardProps) {
     const sensors = useSensors(
         useSensor(PointerSensor, {
             activationConstraint: {
-                distance: 10, // 10px movement to start drag
+                distance: 5, // 5px movement to start drag (more responsive)
             },
-        })
+        }),
+        useSensor(KeyboardSensor)
     )
 
     function onDragStart(event: DragStartEvent) {
@@ -111,7 +113,7 @@ export function KanbanBoard({ initialDeals, orgId }: KanbanBoardProps) {
                 onDragEnd={onDragEnd}
                 collisionDetection={closestCorners}
             >
-                <div className="flex gap-4">
+                <div className="flex gap-2">
                     {columns.map((col) => (
                         <KanbanColumn
                             key={col.id}

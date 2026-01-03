@@ -1,4 +1,4 @@
-
+import { DashboardHeader } from "@/components/layout/dashboard-header"
 import { Sidebar } from "@/components/layout/sidebar"
 import { createClient } from "@/lib/supabase/server"
 import { redirect } from "next/navigation"
@@ -18,18 +18,17 @@ export default async function DashboardLayout({
         redirect("/login")
     }
 
-    // Ideally verify org membership here
-    // const { data: membership } = await supabase.from('org_memberships').select('role').eq('org_id', params.orgId).eq('user_id', user.id).single()
-    // if (!membership) redirect('/select-org')
-
     return (
-        <div className="flex min-h-screen">
-            <div className="hidden w-64 flex-col md:flex">
+        <div className="flex min-h-screen bg-background text-foreground">
+            <div className="hidden w-64 flex-col md:flex fixed inset-y-0 z-50">
                 <Sidebar orgId={orgId} />
             </div>
-            <main className="flex-1 overflow-y-auto bg-muted/20 p-8">
-                {children}
-            </main>
+            <div className="flex flex-col flex-1 md:pl-64">
+                <DashboardHeader orgId={orgId} />
+                <main className="flex-1 overflow-y-auto bg-secondary/30 p-8">
+                    {children}
+                </main>
+            </div>
         </div>
     )
 }

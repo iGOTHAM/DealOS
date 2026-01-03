@@ -47,7 +47,7 @@ export function DocumentUploader({ dealId, orgId }: { dealId: string, orgId: str
             if (dbError) throw dbError
 
             // 3. Insert into document_versions
-            const { error: versionError } = await supabase
+            const versionResult = await supabase
                 .from('document_versions')
                 .insert({
                     document_id: docData.id,
@@ -55,8 +55,21 @@ export function DocumentUploader({ dealId, orgId }: { dealId: string, orgId: str
                     file_path: filePath,
                     status: 'uploaded' // Trigger for Edge Function
                 })
+                .select()
+                .single()
 
-            if (versionError) throw versionError
+            if (versionResult.error) throw versionResult.error
+            const versionData = versionResult.data
+
+            // 4. Trigger Processing (Edge Function)
+            try {
+                const { error: funcError } = await supabase.functions.invoke('process_document_version', {
+                    body: { record: { id: versionData.id } }
+                })
+                if (funcError) console.warn("Auto-processing trigger failed:", funcError)
+            } catch (err) {
+                console.warn("Processing trigger error (non-blocking):", err)
+            }
 
             // Reset
             setFile(null)

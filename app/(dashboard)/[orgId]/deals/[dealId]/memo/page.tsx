@@ -12,17 +12,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import Link from "next/link";
 
-// Mock deal context for now - in real app, fetch from DB/RAG
-const MOCK_DEAL_CONTEXT = `
-Target is a B2B SaaS company in the chaotic logistics space.
-Revenue: $10M ARR, growing 40% YoY.
-Churn: 15% (High).
-Team: 2 Founders, technical background.
-Market: Fragmented, competitors include Flexport (high end) and spreadsheets (low end).
-Ask: raising $5M Series A.
-Risks: High churn, dependence on one channel partner.
-Upside: AI automation feature is best in class.
-`;
+// Deal context is now fetched server-side via RAG
+
 
 export default function DealMemoPage() {
     const params = useParams();
@@ -59,7 +50,7 @@ export default function DealMemoPage() {
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify({
                             section,
-                            dealContext: MOCK_DEAL_CONTEXT, // In real app, this comes from RAG/DB
+                            dealId,
                             toneVoice: activeTemplate.tone_voice
                         }),
                     });
